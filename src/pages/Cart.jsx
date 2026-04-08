@@ -1,16 +1,25 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import './Cart.css'
 
+// Constants
+const TAX_RATE = 0.08
+const FREE_DELIVERY_THRESHOLD = 30
+const DELIVERY_FEE = 4.99
+
 function Cart() {
+  const navigate = useNavigate()
   const { cartItems, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart()
 
   const handleCheckout = () => {
-    alert('Checkout functionality coming soon! 🎉\n\nYour order would include:\n' + 
-      cartItems.map(item => `- ${item.name} x${item.quantity}`).join('\n') +
-      `\n\nTotal: $${totalPrice.toFixed(2)}`)
+    navigate('/checkout')
   }
+
+  const subtotal = totalPrice
+  const deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE
+  const tax = subtotal * TAX_RATE
+  const grandTotal = subtotal + deliveryFee + tax
 
   if (cartItems.length === 0) {
     return (
@@ -111,15 +120,15 @@ function Cart() {
                 <div className="summary-rows">
                   <div className="summary-row">
                     <span>Items ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})</span>
-                    <span>${totalPrice.toFixed(2)}</span>
+                    <span>${subtotal.toFixed(2)}</span>
                   </div>
                   <div className="summary-row">
-                    <span>Delivery</span>
-                    <span className="free">FREE</span>
+                    <span>Delivery {deliveryFee === 0 && <span className="free-badge">FREE</span>}</span>
+                    <span>{deliveryFee === 0 ? 'FREE' : `$${deliveryFee.toFixed(2)}`}</span>
                   </div>
                   <div className="summary-row">
                     <span>Tax</span>
-                    <span>${(totalPrice * 0.08).toFixed(2)}</span>
+                    <span>${tax.toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -127,7 +136,7 @@ function Cart() {
 
                 <div className="summary-row total">
                   <span>Total</span>
-                  <span>${(totalPrice * 1.08).toFixed(2)}</span>
+                  <span>${grandTotal.toFixed(2)}</span>
                 </div>
 
                 <button className="checkout-btn" onClick={handleCheckout}>
