@@ -6,7 +6,8 @@ import {
   BarChart3, 
   Settings, 
   LogOut,
-  Pizza
+  Pizza,
+  User
 } from 'lucide-react'
 import './Sidebar.css'
 
@@ -15,6 +16,7 @@ const navItems = [
   { to: '/orders', icon: ShoppingBag, label: 'Orders' },
   { to: '/menu', icon: UtensilsCrossed, label: 'Menu' },
   { to: '/analytics', icon: BarChart3, label: 'Analytics' },
+  { to: '/profile', icon: User, label: 'Profile' },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ]
 
