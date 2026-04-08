@@ -1,0 +1,40 @@
+/* Menu Section Styles */
+.menu-section {
+  padding: var(--spacing-xxl) 0;
+  background: var(--light);
+  position: relative;
+}
+
+.menu-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.menu-wave svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 60px;
+}
+
+.menu-wave path {
+  fill: var(--white);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+    padding: 0 var(--spacing-sm);
+  }
+}
