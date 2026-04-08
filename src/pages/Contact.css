@@ -176,6 +176,7 @@
 }
 
 .form-title {
+  font-family: var(--font-heading);
   font-size: 1.5rem;
   color: var(--dark);
   margin-bottom: var(--spacing-lg);
@@ -188,7 +189,7 @@
 .form-group label {
   display: block;
   font-weight: 600;
-  color: var(--text);
+  color: var(--dark);
   margin-bottom: var(--spacing-xs);
 }
 
@@ -198,8 +199,10 @@
   padding: var(--spacing-sm) var(--spacing-md);
   border: 2px solid #eee;
   border-radius: var(--radius-md);
-  font-family: var(--font-body);
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark);
   transition: all 0.3s ease;
   background: var(--light);
 }
@@ -214,7 +217,8 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #aaa;
+  color: #999;
+  opacity: 1;
 }
 
 .form-row {
@@ -230,8 +234,9 @@
   gap: var(--spacing-xs);
   width: 100%;
   padding: var(--spacing-md);
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, #ff6b6b 100%);
   color: var(--white);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: 600;
   border: none;
