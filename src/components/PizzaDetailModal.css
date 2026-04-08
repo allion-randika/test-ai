@@ -101,13 +101,13 @@
 .modal-title {
   font-family: var(--font-heading);
   font-size: 2rem;
-  color: var(--dark);
+  color: #000000;
   margin-bottom: var(--spacing-sm);
 }
 
 .modal-description {
   font-size: 1rem;
-  color: var(--text);
+  color: #000000;
   opacity: 0.8;
   line-height: 1.6;
   margin-bottom: var(--spacing-md);
@@ -122,7 +122,7 @@
 
 .modal-tags .tag {
   background: var(--light);
-  color: var(--text);
+  color: #000000;
   padding: 6px 14px;
   border-radius: var(--radius-full);
   font-size: 0.85rem;

@@ -59,13 +59,13 @@
 .pizza-card-title {
   font-family: var(--font-heading);
   font-size: 1.4rem;
-  color: var(--dark);
+  color: #000000;
   margin-bottom: var(--spacing-xs);
 }
 
 .pizza-card-desc {
   font-size: 0.9rem;
-  color: var(--text);
+  color: #000000;
   opacity: 0.8;
   margin-bottom: var(--spacing-sm);
   line-height: 1.5;
@@ -80,7 +80,7 @@
 
 .tag {
   background: var(--light);
-  color: var(--text);
+  color: #000000;
   padding: 4px 10px;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
