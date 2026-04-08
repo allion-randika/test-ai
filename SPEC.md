@@ -70,8 +70,11 @@ Single-page dashboard with sidebar navigation. The layout emphasizes data densit
 │  │ - Orders          │  │  │ (responsive columns)        │  │
 │  │ - Menu            │  │  │                             │  │
 │  │ - Analytics       │  │  │                             │  │
+│  │ - Profile         │  │  │                             │  │
 │  │ - Settings        │  │  │                             │  │
-│  └───────────────────┘  │  └─────────────────────────────┘  │
+│  ├───────────────────┤  │  │                             │  │
+│  │ Sign Out          │  │  └─────────────────────────────┘  │
+│  └───────────────────┘  │                                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -112,7 +115,7 @@ Single-page dashboard with sidebar navigation. The layout emphasizes data densit
 
 **Features**:
 - **Order List Table**: 
-  - Columns: Order ID, Customer, Items, Total, Status, Time, Actions
+  - Columns: Order ID, Customer, Phone, Items, Total, Status, Date, Actions
   - Sortable by any column
   - Filterable by status (New, Preparing, Ready, Delivered, Cancelled)
   - Search by order ID or customer name
@@ -123,7 +126,6 @@ Single-page dashboard with sidebar navigation. The layout emphasizes data densit
 **Interactions**:
 - Status badges are color-coded with subtle glow
 - Clicking status allows quick-change dropdown
-- Drag-and-drop between status columns (stretch goal)
 - Real-time updates with subtle highlight animation
 
 ### 3. Menu Management
@@ -159,13 +161,28 @@ Single-page dashboard with sidebar navigation. The layout emphasizes data densit
 - Hover states reveal precise values
 - Export triggers download with loading state
 
-### 5. Settings
+### 5. Profile View
+**Purpose**: User account management
+
+**Features**:
+- **User Avatar**: Profile photo with edit option
+- **Profile Information**: Name, email, phone, location, role, join date
+- **Stats Cards**: Total orders, revenue generated, avg rating, active days
+- **Recent Activity Feed**: List of recent actions and events
+- **Edit Profile Form**: Update personal information
+
+**Interactions**:
+- Avatar edit button opens photo upload
+- Activity items show type indicators (order, menu, review, schedule)
+- Form validation on save
+
+### 6. Settings
 **Purpose**: Shop configuration
 
 **Features**:
 - **Shop Profile**: Name, address, hours, contact
-- **Business Hours**: Visual weekly schedule picker
-- **Notification Preferences**: Toggle email/SMS alerts
+- **Business Hours**: Visual weekly schedule picker with toggle per day
+- **Notification Preferences**: Toggle email/SMS alerts for orders, reports, alerts
 - **Theme Toggle**: Light/Dark mode switch (dark default)
 
 ## Component Inventory
@@ -218,12 +235,17 @@ Single-page dashboard with sidebar navigation. The layout emphasizes data densit
 - **Container**: Dark elevated card, small arrow pointer
 - **Content**: Label + value pairs, formatted numbers
 
+### Page Loader
+- **Loading State**: Centered spinner with loading text
+- **Animation**: Rotating circle with accent color
+
 ## Technical Approach
 
 ### Framework & Build
 - **React 18** with Vite for fast development
-- **React Router v6** for navigation
-- **CSS Modules** or scoped CSS for styling (no Tailwind)
+- **React Router v6** for navigation with lazy loading
+- **CSS** with scoped files for styling (no Tailwind)
+- **React.lazy()** and **Suspense** for code splitting
 
 ### State Management
 - React Context for global state (theme, user preferences)
@@ -243,28 +265,26 @@ Single-page dashboard with sidebar navigation. The layout emphasizes data densit
   id: string,
   customerName: string,
   customerPhone: string,
-  items: Array<{ menuItemId: string, name: string, quantity: number, price: number }>,
+  items: Array<{ name: string, quantity: number, price: number }>,
   subtotal: number,
   tax: number,
   total: number,
   status: 'new' | 'preparing' | 'ready' | 'delivered' | 'cancelled',
-  createdAt: Date,
-  updatedAt: Date
+  date: string,
+  time: string
 }
 ```
 
 **MenuItem**:
 ```typescript
 {
-  id: string,
+  id: number,
   name: string,
   description: string,
   price: number,
   category: 'pizza' | 'side' | 'drink' | 'dessert',
   imageUrl: string,
-  available: boolean,
-  orderCount: number,
-  toppings: string[]
+  orders: number
 }
 ```
 
@@ -274,31 +294,42 @@ src/
 ├── components/
 │   ├── layout/
 │   │   ├── Sidebar.jsx
-│   │   └── Header.jsx
-│   ├── ui/
-│   │   ├── Card.jsx
-│   │   ├── Button.jsx
-│   │   ├── Input.jsx
-│   │   ├── Badge.jsx
-│   │   ├── Modal.jsx
-│   │   └── Chart.jsx
-│   └── features/
-│       ├── KpiCard.jsx
-│       ├── OrderTable.jsx
-│       ├── MenuGrid.jsx
-│       └── StatusFilter.jsx
+│   │   └── Sidebar.css
+│   ├── Login.jsx
+│   └── Login.css
 ├── pages/
-│   ├── Dashboard.jsx
-│   ├── Orders.jsx
-│   ├── Menu.jsx
-│   ├── Analytics.jsx
-│   └── Settings.jsx
+│   ├── DashboardPage.jsx
+│   ├── DashboardPage.css
+│   ├── OrdersPage.jsx
+│   ├── MenuPage.jsx
+│   ├── AnalyticsPage.jsx
+│   ├── SettingsPage.jsx
+│   ├── ProfilePage.jsx
+│   └── pages.css
 ├── data/
 │   └── mockData.js
-├── context/
-│   └── AppContext.jsx
 ├── styles/
 │   └── global.css
 ├── App.jsx
 └── main.jsx
 ```
+
+### Lazy Loading Implementation
+All page components are lazy-loaded using React's `lazy()` and `Suspense`:
+```jsx
+const Dashboard = lazy(() => import('./pages/DashboardPage'))
+const Orders = lazy(() => import('./pages/OrdersPage'))
+// etc.
+
+<Suspense fallback={<PageLoader />}>
+  <Routes>
+    <Route path="/dashboard" element={<Dashboard />} />
+    // etc.
+  </Routes>
+</Suspense>
+```
+
+This ensures:
+- Faster initial page load
+- Smaller bundle sizes per route
+- Better user experience with loading states

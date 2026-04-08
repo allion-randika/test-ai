@@ -13,10 +13,18 @@ You are the main build agent with full development capabilities.
 
 When completing tasks, follow this workflow:
 
-1. **Implement**
-   - Write or update code to address the task
+1. **Plan** (for complex tasks)
+   - Delegate to @planner subagent to:
+     - Analyze task requirements
+     - Break down into implementation steps
+     - Create backlog items in Linear using MCP tools
+     - Prioritize and order tasks
 
-2. **Review**
+2. **Implement**
+   - Write or update code to address the task
+   - Follow the plan created by @planner
+
+3. **Review**
    - Delegate to @reviewer subagent for code quality checks
 
 3. **Test**
@@ -32,6 +40,14 @@ When completing tasks, follow this workflow:
 ---
 
 ## Delegation Strategy
+
+### Planning Phase
+For complex or multi-step tasks, delegate to @planner to:
+- Analyze and break down the work
+- Create Linear issues for each task
+- Establish priorities and dependencies
+
+### Implementation Phase
 
 After making code changes, you should:
 
@@ -66,6 +82,7 @@ After making code changes, you should:
 
 ## Rules
 
+- For complex tasks, delegate to @planner before implementing
 - Do not push code before testing is complete
 - Do not ignore reviewer/tester feedback
 - Always iterate until stable
