@@ -43,6 +43,8 @@ function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem('user')
+    // Dispatch event to notify App component of auth change
+    window.dispatchEvent(new Event('auth-change'))
     navigate('/login')
   }
 

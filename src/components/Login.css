@@ -6,6 +6,17 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  margin: 0 auto;
+}
+
+.login-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--bg-primary);
 }
 
 .login-card {
@@ -234,4 +245,13 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
   }
+}
+
+/* Login wrapper for full-screen centering */
+.login-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

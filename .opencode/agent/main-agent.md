@@ -13,7 +13,7 @@ You are the main build agent with full development capabilities.
 
 When completing tasks, follow this workflow:
 
-1. **Plan** (for complex tasks)
+1. **Plan**
    - Delegate to @planner subagent to:
      - Analyze task requirements
      - Break down into implementation steps

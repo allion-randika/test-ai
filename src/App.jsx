@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './components/Login'
 
@@ -19,7 +19,27 @@ const PageLoader = () => (
 )
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem('user')
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return !!localStorage.getItem('user')
+  })
+
+  useEffect(() => {
+    // Check for auth changes via custom event (same tab)
+    const handleAuthChange = () => {
+      const user = localStorage.getItem('user')
+      setIsAuthenticated(!!user)
+    }
+    
+    window.addEventListener('auth-change', handleAuthChange)
+    
+    // Listen for storage changes (works across tabs)
+    window.addEventListener('storage', handleAuthChange)
+    
+    return () => {
+      window.removeEventListener('auth-change', handleAuthChange)
+      window.removeEventListener('storage', handleAuthChange)
+    }
+  }, [])
 
   return (
     <Router>
