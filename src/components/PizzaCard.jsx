@@ -1,7 +1,18 @@
-import { Plus } from 'lucide-react'
+import { Plus, Check } from 'lucide-react'
+import { useState } from 'react'
+import { useCart } from '../context/CartContext'
 import './PizzaCard.css'
 
 function PizzaCard({ pizza, index }) {
+  const { addToCart } = useCart()
+  const [isAdded, setIsAdded] = useState(false)
+
+  const handleAddToCart = () => {
+    addToCart(pizza)
+    setIsAdded(true)
+    setTimeout(() => setIsAdded(false), 1500)
+  }
+
   return (
     <div 
       className="pizza-card" 
@@ -26,9 +37,12 @@ function PizzaCard({ pizza, index }) {
           <span className="pizza-card-price">
             ${pizza.price.toFixed(2)}
           </span>
-          <button className="add-btn">
-            <Plus size={18} />
-            Add
+          <button 
+            className={`add-btn ${isAdded ? 'added' : ''}`}
+            onClick={handleAddToCart}
+          >
+            {isAdded ? <Check size={18} /> : <Plus size={18} />}
+            {isAdded ? 'Added!' : 'Add'}
           </button>
         </div>
       </div>

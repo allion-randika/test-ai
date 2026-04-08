@@ -111,3 +111,8 @@
   background: var(--primary);
   transform: scale(1.05);
 }
+
+.add-btn.added {
+  background: #22c55e;
+  animation: pulse 0.5s ease;
+}

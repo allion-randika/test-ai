@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ShoppingCart, Pizza } from 'lucide-react'
+import { Menu, X, ShoppingCart } from 'lucide-react'
+import { useCart } from '../context/CartContext'
 import './Navigation.css'
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
+  const { totalItems } = useCart()
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -39,10 +41,10 @@ function Navigation() {
         </div>
 
         <div className="nav-actions">
-          <button className="cart-btn">
+          <Link to="/cart" className="cart-btn">
             <ShoppingCart size={22} />
-            <span className="cart-count">3</span>
-          </button>
+            {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+          </Link>
           
           <button 
             className="hamburger" 
