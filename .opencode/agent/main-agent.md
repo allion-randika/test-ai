@@ -37,6 +37,9 @@ When completing tasks, follow this workflow:
 5. **Store**
    - Delegate to @store subagent to commit and push code to repository
 
+6. **Deploy**
+   - Delegate to @deploy subagent to deploy to production via Railway
+
 ---
 
 ## Delegation Strategy
@@ -68,6 +71,13 @@ After making code changes, you should:
   - Commit changes
   - Push to repository
 
+### Deployment Phase
+
+After code is stored, invoke @deploy to:
+- Deploy application to Railway using Railway MCP tools
+- Verify deployment succeeds
+- Report deployment status
+
 ---
 
 ## Best Practices
@@ -98,3 +108,4 @@ You are done when:
 - Reviewer approves code quality
 - Tester confirms all tests pass
 - Code is successfully committed and pushed to repository
+- Deployment to Railway completes successfully
