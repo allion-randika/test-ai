@@ -3,20 +3,31 @@ import { useState } from 'react'
 import { useCart } from '../context/CartContext'
 import './PizzaCard.css'
 
-function PizzaCard({ pizza, index }) {
+function PizzaCard({ pizza, index, onClick }) {
   const { addToCart } = useCart()
   const [isAdded, setIsAdded] = useState(false)
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation()
     addToCart(pizza)
     setIsAdded(true)
     setTimeout(() => setIsAdded(false), 1500)
+  }
+
+  const handleCardClick = () => {
+    if (onClick) {
+      onClick(pizza)
+    }
   }
 
   return (
     <div 
       className="pizza-card" 
       style={{ animationDelay: `${index * 0.1}s` }}
+      onClick={handleCardClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && handleCardClick()}
     >
       <div className="pizza-card-image">
         <span className="pizza-emoji pizza-float">🍕</span>

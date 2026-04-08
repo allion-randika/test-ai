@@ -1,4 +1,6 @@
 import PizzaCard from './PizzaCard'
+import PizzaDetailModal from './PizzaDetailModal'
+import { useState } from 'react'
 import './MenuSection.css'
 
 const pizzas = [
@@ -47,6 +49,16 @@ const pizzas = [
 ]
 
 function MenuSection() {
+  const [selectedPizza, setSelectedPizza] = useState(null)
+
+  const handlePizzaClick = (pizza) => {
+    setSelectedPizza(pizza)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedPizza(null)
+  }
+
   return (
     <section className="menu-section" id="menu">
       <div className="menu-wave">
@@ -62,10 +74,22 @@ function MenuSection() {
         
         <div className="menu-grid">
           {pizzas.map((pizza, index) => (
-            <PizzaCard key={pizza.id} pizza={pizza} index={index} />
+            <PizzaCard 
+              key={pizza.id} 
+              pizza={pizza} 
+              index={index}
+              onClick={handlePizzaClick}
+            />
           ))}
         </div>
       </div>
+
+      {selectedPizza && (
+        <PizzaDetailModal 
+          pizza={selectedPizza} 
+          onClose={handleCloseModal}
+        />
+      )}
     </section>
   )
 }
