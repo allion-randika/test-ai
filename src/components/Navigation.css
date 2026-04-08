@@ -91,7 +91,12 @@
 }
 
 .cart-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  color: var(--primary);
+}
+
+.cart-btn:active {
+  transform: scale(0.9);
 }
 
 .cart-count {

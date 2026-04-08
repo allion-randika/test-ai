@@ -30,26 +30,26 @@ function Hero() {
         </p>
         
         <div className="hero-actions">
-          <Link to="/menu" className="btn btn-primary">
+          <Link to="/menu" className="btn btn-primary btn-press hover-lift hover-glow">
             Order Now
-            <ArrowRight size={20} />
+            <ArrowRight size={20} className="btn-icon" />
           </Link>
-          <Link to="/about" className="btn btn-secondary">
+          <Link to="/about" className="btn btn-secondary btn-press hover-lift">
             Our Story
           </Link>
         </div>
         
         <div className="hero-features">
-          <div className="feature">
+          <div className="feature hover-scale">
             <Clock size={20} />
             <span>30 min Delivery</span>
           </div>
-          <div className="feature">
+          <div className="feature hover-scale">
             <Truck size={20} />
             <span>Free Shipping</span>
           </div>
-          <div className="feature">
-            <span className="feature-emoji">⭐</span>
+          <div className="feature hover-scale">
+            <span className="feature-emoji pizza-heartbeat">⭐</span>
             <span>4.9 Rating</span>
           </div>
         </div>

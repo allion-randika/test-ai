@@ -6,11 +6,16 @@
   box-shadow: var(--shadow-md);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   animation: slideUp 0.6s ease-out backwards;
+  cursor: pointer;
 }
 
 .pizza-card:hover {
   transform: translateY(-15px) scale(1.02);
   box-shadow: var(--shadow-hover);
+}
+
+.pizza-card:active {
+  transform: translateY(-10px) scale(0.98);
 }
 
 .pizza-card-image {
@@ -105,14 +110,41 @@
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
 }
 
 .add-btn:hover {
   background: var(--primary);
-  transform: scale(1.05);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 5px 20px rgba(255, 77, 77, 0.4);
+}
+
+.add-btn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
 }
 
 .add-btn.added {
   background: #22c55e;
   animation: pulse 0.5s ease;
+}
+
+/* Add a subtle shine effect on hover */
+.add-btn:hover::before {
+  width: 200px;
+  height: 200px;
 }

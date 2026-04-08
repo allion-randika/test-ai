@@ -102,6 +102,18 @@
   color: var(--primary);
 }
 
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  transition: transform 0.3s ease;
+}
+
+.feature:hover .feature-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
 .feature-emoji {
   font-size: 1.2rem;
 }
